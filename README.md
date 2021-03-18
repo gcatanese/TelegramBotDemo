@@ -1,7 +1,7 @@
 # TelegramBotDemo
 Simple Telegram Bot
 
-Find here the source code of the [1–2–3 Advanced Telegram Bot: knowing your Tricks and Treats](https://beppecatanese.medium.com/twitter-direct-messages-like-a-pro-with-tweepy-48bc1cdade04) 
+Find here the source code of the [Advanced Telegram Chatbots: features that make a difference](https://beppecatanese.medium.com/twitter-direct-messages-like-a-pro-with-tweepy-48bc1cdade04) 
 article.
 
 ## Setup
