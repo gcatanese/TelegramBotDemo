@@ -3,8 +3,10 @@ import re
 import pyfiglet
 import logging
 import os
+import requests
 
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 import telegram
 
@@ -46,37 +48,46 @@ def get_user(update):
     return user
 
 
+def start_command_handler(update, context):
+    """Send a message when the command /start is issued."""
+    add_typing(update, context)
+    buttons = MultiItems("What would you like to receive?", ["Text", "File", "GoogleDoc", "Gallery"])
+    add_suggested_actions(update, context, buttons)
+
+
 def help_command_handler(update, context):
     """Send a message when the command /help is issued."""
-    update.message.reply_text('Send me an hashtag (i.e. #saveOurPlanet) to see where it goes.')
-    add_typing(update, context)
-    update.message.reply_text('More info at https://myhashtag.app/')
+    update.message.reply_text('Type /start')
 
 
 def main_handler(update, context):
     logging.info(f'update : {update}')
 
-    user_input = get_text(update)
-    logging.info(f'user_input : {user_input}')
-
     if update.message is not None:
-        # text message
+        user_input = get_text_from_message(update)
+        logging.info(f'user_input : {user_input}')
+
+        # reply
         add_typing(update, context)
-        add_text_message(update, context, "hey")
+        add_text_message(update, context, f"You said: {user_input}")
 
-        # add_typing(update, context)
-        # buttons = MultiItems("What do you think?", ["⭐", "⭐⭐", "⭐⭐⭐"])
-        # add_suggested_actions(update, context, buttons)
-
-        #add_document(update, context, "https://tweesky.com/logo.png")
     elif update.callback_query is not None:
-        # callback
-        add_typing(update, context)
-        add_text_message(update, context, "hey")
-    elif update.poll is not None:
-        # poll
-        None
+        user_input = get_text_from_callback(update)
+        logging.info(f'user_input : {user_input}')
 
+        if user_input == 'Simple Text':
+            add_typing(update, context)
+            add_text_message(update, context, "Hello from the Bot 😎")
+        elif user_input == 'File':
+            # file from Github
+            url = "https://github.com/gcatanese/TelegramBotDemo/raw/main/files/test.pdf"
+            add_document(update, context, url)
+        elif user_input == 'GoogleDoc':
+            # google doc
+            url = "https://docs.google.com/document/d/10KPUejkqitf2lKHzNUreSO5TwlQ3XDwi_mb-CiAD8Zg/edit?usp=sharing"
+            fetch_and_send(update, context, url)
+        elif user_input == 'Gallery':
+            send_gallery(update, context)
 
 
 def add_typing(update, context):
@@ -89,8 +100,8 @@ def add_text_message(update, context, message):
         #context.bot.send_message(chat_id=get_chat_id(update, context), text=message)
         update.message.reply_text(message)
     elif update.callback_query is not None:
-
         update.callback_query.message.edit_text(message)
+
 
 def add_suggested_actions(update, context, response):
     options = []
@@ -106,8 +117,32 @@ def add_suggested_actions(update, context, response):
 def add_document(update, context, url):
     context.bot.send_document(chat_id=get_chat_id(update, context), document=url)
 
-def get_text(update):
-    return 'a' #update.message.text
+
+def fetch_and_send(update, context, url):
+    r = requests.get(url, allow_redirects=True)
+    print(r)
+    open('googledoc.docx', 'wb').write(r.content)
+
+    context.bot.send_document(chat_id=get_chat_id(update, context), document=open('googledoc.docx', 'rb'), filename="googledoc.docx")
+
+
+def send_gallery(update, context):
+    list = []
+
+    list.append(InputMediaPhoto(media='https://github.com/gcatanese/TelegramBotDemo/raw/main/files/caveman.png', caption='Caveman'))
+    list.append(InputMediaPhoto(media='https://github.com/gcatanese/TelegramBotDemo/raw/main/files/magic.png', caption='Game of Thrones'))
+    list.append(InputMediaPhoto(media='https://github.com/gcatanese/TelegramBotDemo/raw/main/files/red_ninja.png', caption='Red Ninja'))
+    list.append(InputMediaPhoto(media='https://github.com/gcatanese/TelegramBotDemo/raw/main/files/black_ninja.png', caption='Black Ninja'))
+
+    context.bot.send_media_group(chat_id=get_chat_id(update, context), media=list)
+
+
+def get_text_from_message(update):
+    return update.message.text
+
+
+def get_text_from_callback(update):
+    return update.callback_query.data
 
 
 def extract_hashtags(text):
@@ -145,8 +180,9 @@ def main():
 
     dp = updater.dispatcher
 
-    # cmd
+    # command handlers
     dp.add_handler(CommandHandler("help", help_command_handler))
+    dp.add_handler(CommandHandler("start", start_command_handler))
 
     # message handler
     dp.add_handler(MessageHandler(Filters.text, main_handler))
@@ -171,7 +207,7 @@ def main():
         updater.start_polling()
         logging.info(f"Start polling mode")
 
-    updater.idle()
+    #updater.idle()
 
 
 class DefaultConfig:
