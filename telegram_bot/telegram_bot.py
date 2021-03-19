@@ -129,10 +129,9 @@ def fetch_and_send(update, context, url):
 def send_gallery(update, context):
     list = []
 
-    list.append(InputMediaPhoto(media='https://github.com/gcatanese/TelegramBotDemo/raw/main/files/caveman.png', caption='Caveman'))
-    list.append(InputMediaPhoto(media='https://github.com/gcatanese/TelegramBotDemo/raw/main/files/magic.png', caption='Game of Thrones'))
-    list.append(InputMediaPhoto(media='https://github.com/gcatanese/TelegramBotDemo/raw/main/files/red_ninja.png', caption='Red Ninja'))
-    list.append(InputMediaPhoto(media='https://github.com/gcatanese/TelegramBotDemo/raw/main/files/black_ninja.png', caption='Black Ninja'))
+    list.append(InputMediaPhoto(media='https://github.com/gcatanese/TelegramBotDemo/raw/main/files/mintie.jpg', caption='Mint'))
+    list.append(InputMediaPhoto(media='https://github.com/gcatanese/TelegramBotDemo/raw/main/files/pinkie.jpg', caption='Pink'))
+    list.append(InputMediaPhoto(media='https://github.com/gcatanese/TelegramBotDemo/raw/main/files/orangie.jpg', caption='Orange'))
 
     context.bot.send_media_group(chat_id=get_chat_id(update, context), media=list)
 
