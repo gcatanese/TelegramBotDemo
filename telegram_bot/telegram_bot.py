@@ -2,6 +2,7 @@ import time
 import re
 import pyfiglet
 import logging
+import logging.config
 import os
 import requests
 
@@ -221,6 +222,7 @@ class DefaultConfig:
     def init_logging():
         logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
                             level=DefaultConfig.LOG_LEVEL)
+        #logging.config.fileConfig('logging.conf')
 
 
 if __name__ == '__main__':
