@@ -1,0 +1,1 @@
+web: python telegram_bot/telegram_bot.py
