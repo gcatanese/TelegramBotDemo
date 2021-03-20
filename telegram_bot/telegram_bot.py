@@ -197,8 +197,11 @@ def main():
     # Start the Bot
     if DefaultConfig.MODE == 'webhook':
 
+        PORT = int(os.environ.get('PORT', '8443'))
+        logging.info(f'PORT {PORT}')
+
         updater.start_webhook(listen="0.0.0.0",
-                              port=int(DefaultConfig.PORT),
+                              port=PORT,
                               url_path=DefaultConfig.TELEGRAM_TOKEN)
         updater.bot.setWebhook(DefaultConfig.WEBHOOK_URL + DefaultConfig.TELEGRAM_TOKEN)
 
