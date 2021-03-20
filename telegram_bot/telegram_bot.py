@@ -13,6 +13,9 @@ import telegram
 
 from _model import *
 
+PORT = int(os.environ.get('PORT', '8443'))
+logging.info(f'PORT {PORT}')
+
 
 def get_chat_id(update, context):
     chat_id = -1
@@ -197,8 +200,7 @@ def main():
     # Start the Bot
     if DefaultConfig.MODE == 'webhook':
 
-        PORT = int(os.environ.get('PORT', '8443'))
-        logging.info(f'PORT {PORT}')
+        logging.info(f'PORT2 {PORT}')
 
         updater.start_webhook(listen="0.0.0.0",
                               port=PORT,
