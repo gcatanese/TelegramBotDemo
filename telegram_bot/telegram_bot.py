@@ -207,7 +207,7 @@ def main():
         updater.start_polling()
         logging.info(f"Start polling mode")
 
-    #updater.idle()
+    updater.idle()
 
 
 class DefaultConfig:
