@@ -227,7 +227,7 @@ class DefaultConfig:
 
 
 if __name__ == '__main__':
-    ascii_banner = pyfiglet.figlet_format("MyHashtag")
+    ascii_banner = pyfiglet.figlet_format("AdvancedTelegramBot")
     print(ascii_banner)
 
     # Enable logging
