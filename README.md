@@ -8,8 +8,8 @@ article.
   * [Setup](#setup)
   * [Run on Local](#run-on-local)
   * [Deploy to Heroku with Git](#deploy-to-heroku-with-git)
-  * [Deploy to Heroku with Docker (on x86-64 architecture)](#deploy-to-heroku-with-docker--on-x86-64-architecture-)
-  * [Deploy to Heroku with Docker (on ARM architecture)](#deploy-to-heroku-with-docker--on-arm-architecture-)
+  * [Deploy to Heroku with Docker (on x86-64 architecture)](#deploy-to-heroku-with-docker-on-x86-64-architecture)
+  * [Deploy to Heroku with Docker (on ARM architecture)](#deploy-to-heroku-with-docker-on-arm-architecture)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
