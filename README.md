@@ -4,7 +4,17 @@ Simple Telegram Bot
 Find here the source code of the [Advanced Telegram Chatbots: features that make a difference](https://towardsdatascience.com/bring-your-telegram-chatbot-to-the-next-level-c771ec7d31e4) 
 article.
 
-## Setup
+### Table of Contents 
+  * [Setup](#setup)
+  * [Run on Local](#run-on-local)
+  * [Deploy to Heroku with Git](#deploy-to-heroku-with-git)
+  * [Deploy to Heroku with Docker (on x86-64 architecture)](#deploy-to-heroku-with-docker--on-x86-64-architecture-)
+  * [Deploy to Heroku with Docker (on ARM architecture)](#deploy-to-heroku-with-docker--on-arm-architecture-)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+
+##Setup
 
 Clone the repository
 
@@ -14,7 +24,7 @@ git clone https://github.com/gcatanese/TelegramBotDemo.git
 
 Create and *.env* file in the same folder as *app.py*. The *.env* file defines the environment variables.  
 
-* TELEGRAM_TOKEN={your Telegram token}
+* TELEGRAM_TOKEN={your Telegram token} [here]
 
 
 ## Run on Local
